@@ -158,13 +158,15 @@ internal class SimpleMediaService :
     }
 
     @UnstableApi
-    override fun onDestroy() {
-        super.onDestroy()
-        Logger.w("Service", "Simple Media Service Destroyed")
-        if (simpleMediaServiceHandler.shouldReleaseOnTaskRemoved()) {
-            release()
-        }
+override fun onDestroy() {
+    Logger.w("Service", "Simple Media Service Destroyed")
+
+    if (mediaSession != null) {
+        release()
     }
+
+    super.onDestroy()
+}
 
     override fun onTrimMemory(level: Int) {
         Logger.w("Service", "Simple Media Service Trim Memory Level: $level")
